@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <script src="https://unpkg.com/vue"></script>
 </head>
 
 <body>
     <svg style="display:none;" xmlns="http://www.w3.org/2000/svg" width="21" height="39" viewBox="0 0 21 39">
-        <path id="arrow-icon" data-name="Forma 1 copy 6" class="cls-1" d="M798.244,529.42l-15.85,16.773a2.481,2.481,0,0,1-3.65,0,2.845,2.845,0,0,1,0-3.863l14.024-14.841-14.024-14.84a2.849,2.849,0,0,1,0-3.864,2.482,2.482,0,0,1,3.651,0l15.85,16.773A2.845,2.845,0,0,1,798.244,529.42Z"
+        <path id="arrow-icon" d="M798.244,529.42l-15.85,16.773a2.481,2.481,0,0,1-3.65,0,2.845,2.845,0,0,1,0-3.863l14.024-14.841-14.024-14.84a2.849,2.849,0,0,1,0-3.864,2.482,2.482,0,0,1,3.651,0l15.85,16.773A2.845,2.845,0,0,1,798.244,529.42Z"
             transform="translate(-778 -508)" />
     </svg>
     <svg style="display:none;" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
@@ -41,7 +43,7 @@
             transform="translate(-25 -184)" />
     </svg>
 
-
+    <div id="app">
 
     <header>
         <div class="container-fluid">
@@ -114,7 +116,7 @@
                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#date-picker-icon" fill="#212121"></use>
                             </svg>
                         </i>
-                        <input type="text" class="date-picker__item">
+                        <input type="text" class="date-picker__item" placeholder="May 01, 2017 — May 31, 2017">
                         <a href="#" class="date-picker__button">Custom</a>
                     </div>
                     <div class="control-panel">
@@ -134,39 +136,31 @@
                             <a href="" class="control-panel__link">events</a>
                         </div>
                     </div>
-                    <button class="add-new-item">
+                    <button class="add-new-item" v-on:click="addNewCar">
                     Add New Rooftop
                 </button>
                 </div>
                 <div class="col-md-13 admin-panel-decor">
                     <div class="car-tabs">
-                        <a href="" class="car-tabs__item item--active">Chevy Buik GMC</a>
-                        <a href="" class="car-tabs__item">Chevy North</a>
-                        <a href="" class="car-tabs__item">Ford</a>
-                        <a href="" class="car-tabs__item">Ford South</a>
-                        <a href="" class="car-tabs__item">Toyota</a>
-                        <a href="" class="car-tabs__item">Subaru</a>
-                        <a href="" class="car-tabs__item">Chev Cad</a>
-                        <a href="" class="car-tabs__item">Nissan</a>
-                        <a href="" class="car-tabs__item">Mazda</a>
+                        <a href="" class="car-tabs__item" v-bind:class="{active: car.isActive}" v-for="car in cars">{{car.name}}</a>
                     </div>
                     <div class="admin-panel">
                         <div class="admin-category">
                             <div class="admin-category__item">
+                                <span class="admin-category__arrow">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="44" fill="#e16f2d" viewBox="0 0 22 44">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-icon" ></use>
+                                        </svg>
+                                </span>
                                 <h3 class="admin-panel-title">Choose product categorys</h3>
                                 <div class="admin-category__column">
-                                    <span class="admin-category__arrow">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="44" viewBox="0 0 22 44">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-icon" fill="#212121"></use>
-                                            </svg>
-                                        </span>
                                     <div class="admin-category__search">
                                         <input type="text" placeholder="Search..." />
-                                        <i class="icon icon-search">
+                                        <a class="icon icon-search">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 20 22">
                                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search-icon" fill="#212121"></use>
                                             </svg>
-                                        </i>
+                                        </a>
                                     </div>
                                     <ul class="admin-category-list">
                                         <li class="admin-category-list__item item--active">
@@ -203,17 +197,29 @@
                                 </div>
                             </div>
                             <div class="admin-category__item">
+                                <span class="admin-category__arrow arrow--left">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="44" fill="#333333" viewBox="0 0 22 44">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-icon"></use>
+                                    </svg>
+                                </span>
                                 <h3 class="admin-panel-title">Choosen product categories</h3>
                                 <div class="admin-category__column">
-                                    <span class="admin-category__arrow arrow--left">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="44" viewBox="0 0 22 44">
-                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-icon"></use>
-                                        </svg>
-                                    </span>
                                     <ul class="admin-category-list">
                                         <li class="admin-category-list__item">
                                             <span class="icon icon-folder"></span> tv/radio
                                             <ul class="admin-category-sub-list">
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
                                                 <li class="admin-category-sub-list__item">
                                                     KennyRoss.com SEM/SMM
                                                 </li>
@@ -225,6 +231,18 @@
                                                 <li class="admin-category-sub-list__item">
                                                     KennyRoss.com SEM/SMM
                                                 </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
                                             </ul>
                                         </li>
                                         <li class="admin-category-list__item">
@@ -233,11 +251,135 @@
                                                 <li class="admin-category-sub-list__item">
                                                     KennyRoss.com SEM/SMM
                                                 </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
                                             </ul>
                                         </li>
                                         <li class="admin-category-list__item">
                                             <span class="icon icon-folder"></span> DIGITAL MARKETING
                                             <ul class="admin-category-sub-list">
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="admin-category-list__item">
+                                            <span class="icon icon-folder"></span> DIGITAL MARKETING
+                                            <ul class="admin-category-sub-list">
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="admin-category-list__item">
+                                            <span class="icon icon-folder"></span> DIGITAL MARKETING
+                                            <ul class="admin-category-sub-list">
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="admin-category-list__item">
+                                            <span class="icon icon-folder"></span> DIGITAL MARKETING
+                                            <ul class="admin-category-sub-list">
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="admin-category-list__item">
+                                            <span class="icon icon-folder"></span> DIGITAL MARKETING
+                                            <ul class="admin-category-sub-list">
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="admin-category-list__item">
+                                            <span class="icon icon-folder"></span> DIGITAL MARKETING
+                                            <ul class="admin-category-sub-list">
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
+                                                <li class="admin-category-sub-list__item">
+                                                    KennyRoss.com SEM/SMM
+                                                </li>
                                                 <li class="admin-category-sub-list__item">
                                                     KennyRoss.com SEM/SMM
                                                 </li>
@@ -261,7 +403,7 @@
                                                 <label class="admin-panel-title">Target budget</label>
                                                 <input type="text">
                                             </div>
-                                            <div class="admin-card-form__field">
+                                            <div class="admin-card-form__field field--co-op">
                                                 <label class="admin-panel-title">CO-OP</label>
                                                 <input type="text">
                                             </div>
@@ -279,27 +421,44 @@
                                             <button class="admin-card-form__submit">Chose th creative</button>
                                         </div>
                                         <div class="admin-card-form__field">
-                                            <label class="admin-panel-title">FLight date</label>
-                                            <input type="text">
+                                            <div class="flight-date">
+                                                <ul class="flight-date-list">
+                                                    <li class="flight-date-list__item">
+                                                        <span class="start">05/02</span>
+                                                        —
+                                                        <span class="end">25/12</span>
+                                                    </li>
+                                                    <li class="flight-date-list__item">
+                                                        <span class="start">05/02</span>
+                                                        —
+                                                        <span class="end">25/12</span>
+                                                    </li>
+                                                    <li class="flight-date-list__item">
+                                                        <span class="start">05/02</span>
+                                                        —
+                                                        <span class="end">25/12</span>
+                                                    </li>
+                                                </ul>
+                                                <a href="#" class="flight-date__add">
+                                                    +
+                                                </a>
+                                            </div>
+
                                         </div>
 
                                     </div>
                                 </div>
-
-
-
-
                                 <div class="admin-card-form__field">
                                     <label class="admin-panel-title">Description</label>
-                                    <textarea name="" id="" cols="30" rows="10" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet."></textarea>
+                                    <textarea name="" id="" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet."></textarea>
                                 </div>
                                 <div class="admin-card-form__field">
                                     <label class="admin-panel-title">Strategy</label>
-                                    <textarea name="" id="" cols="30" rows="10" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet."></textarea>
+                                    <textarea name="" id="" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet."></textarea>
                                 </div>
                                 <div class="admin-card-form__field">
                                     <label class="admin-panel-title">Notes/Rational</label>
-                                    <textarea name="" id="" cols="30" rows="10" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet."></textarea>
+                                    <textarea name="" id="" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet."></textarea>
                                 </div>
                             </form>
                         </div>
@@ -308,11 +467,54 @@
             </div>
         </div>
     </main>
-    <script id="__bs_script__">
-        //<![CDATA[
-        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.11.2.js'><\/script>".replace(
-            "HOST", location.hostname));
-        //]]>
+
+
+    </div>
+
+    <script>
+        
+        Vue.component('todo-item', {
+            template: '<li>Это todo</li>'
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+            isActive: true,
+            cars: [
+            {id: 1,name: "Chevy", isActive: false},
+            {id: 2,name: "Ford", isActive: false},
+            {id: 3,name: "Ford", isActive: false},
+            {id: 4,name: "Toyota", isActive: false},
+            {id: 5,name: "Subaru", isActive: false},
+            {id: 6,name: "Chev", isActive: false},
+            {id: 7,name: "Nissan", isActive: false},
+            {id: 8,name: "Mazda", isActive: false},
+            ],
+            nextCarId: 8,
+            message: 'Вот когда вы загрузили эту страницу: '
+             + new Date().toLocaleString()
+            },
+            computed: {
+                reverseMessage: function() {
+                    console.log(this.message)
+                    return this.message
+                }
+            },
+            methods: {
+                reverseMessageTru: function() {
+                    console.log(this.message)
+                    return Date.now()
+                },
+                addNewCar: function() {
+                    this.cars.push({
+                        id: this.nextCarId++,
+                        name: `Noname ${this.nextCarId}`,
+                        isActive: false
+                    })
+                }
+            },
+        })
+
     </script>
 </body>
 
