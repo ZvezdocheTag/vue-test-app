@@ -27,7 +27,7 @@
             </style>
         </defs>
         <path id="search-icon" data-name="Forma 1" class="cls-1" d="M723.762,289.662l-3.7-3.713a5.915,5.915,0,0,0,1.471-3.893,6.273,6.273,0,1,0-6.269,6.056,6.351,6.351,0,0,0,3.591-1.1l3.724,3.742a0.838,0.838,0,0,0,1.156.021A0.773,0.773,0,0,0,723.762,289.662Zm-8.494-12.082a4.479,4.479,0,1,1-4.634,4.476A4.562,4.562,0,0,1,715.268,277.58Z"
-            transform="translate(-709 -276)" />
+            transform="translate(-709 -274)" />
     </svg>
 
     <svg style="display:none;" xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 20 22">
@@ -79,7 +79,7 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="indicators">
                         <div class="indicators__item">
                             <div class="indicators__title">Budget:</div>
@@ -120,20 +120,12 @@
                         <a href="#" class="date-picker__button">Custom</a>
                     </div>
                     <div class="control-panel">
-                        <div class="control-panel__item">
-                            <a href="" class="control-panel__link">edit products</a>
-                        </div>
-                        <div class="control-panel__item">
-                            <a href="" class="control-panel__link">upload budge file</a>
-                        </div>
-                        <div class="control-panel__item">
-                            <a href="" class="control-panel__link">Edit rooftop settings</a>
-                        </div>
-                        <div class="control-panel__item">
-                            <a href="" class="control-panel__link">add access list</a>
-                        </div>
-                        <div class="control-panel__item">
-                            <a href="" class="control-panel__link">events</a>
+                        <div class="control-panel__item" v-for="pane in controlPanel">
+                            <a 
+                            v-on:click.prevent="isActivePane = pane.name"
+                            v-bind:class="{linkactive: pane.name === isActivePane}" 
+                            href="" 
+                            class="control-panel__link">{{pane.name}}</a>
                         </div>
                     </div>
                     <button class="add-new-item" v-on:click="addNewCar">
@@ -142,16 +134,33 @@
                 </div>
                 <div class="col-md-13 admin-panel-decor">
                     <div class="car-tabs">
-                        <a href="" class="car-tabs__item" v-bind:class="{active: car.isActive}" v-for="car in cars">{{car.name}}</a>
+                        <a 
+                        href="" 
+                        v-on:click.prevent="isSelectedCar = car.id"
+                        class="car-tabs__item" 
+                        v-bind:class="{itemactive: isSelectedCar === car.id}" 
+                        v-for="car in cars">{{car.name}} </a>
                     </div>
-                    <div class="admin-panel">
+                    <div v-if="isActivePane === `edit products`" class="admin-panel">
+                        <h2 class="admin-panel__page"><span style="color: tomato;">Admin Panel name {{filterCar()}}</span></h2>
                         <div class="admin-category">
+                                <div class="admin-category__control">
+                                        <a class="admin-category__arrow arrow--right">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="44" fill="#e16f2d" viewBox="0 0 22 44">
+                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-icon" ></use>
+                                                </svg>
+                                        </a>
+                                        <a class="admin-category__arrow arrow--left">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="44" fill="#333333" viewBox="0 0 22 44">
+                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-icon"></use>
+                                                </svg>
+                                        </a>
+                                    </div>
                             <div class="admin-category__item">
-                                <span class="admin-category__arrow">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="44" fill="#e16f2d" viewBox="0 0 22 44">
-                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-icon" ></use>
-                                        </svg>
-                                </span>
+                                
+
+                                
+
                                 <h3 class="admin-panel-title">Choose product categorys</h3>
                                 <div class="admin-category__column">
                                     <div class="admin-category__search">
@@ -197,11 +206,7 @@
                                 </div>
                             </div>
                             <div class="admin-category__item">
-                                <span class="admin-category__arrow arrow--left">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="44" fill="#333333" viewBox="0 0 22 44">
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-icon"></use>
-                                    </svg>
-                                </span>
+
                                 <h3 class="admin-panel-title">Choosen product categories</h3>
                                 <div class="admin-category__column">
                                     <ul class="admin-category-list">
@@ -396,21 +401,25 @@
 
                                         <div class="admin-card-form__field">
                                             <label class="admin-panel-title">Title</label>
-                                            <input type="text">
+                                            <input type="text" name="title" placeholder="Title">
                                         </div>
                                         <div class="admin-card-form__row">
                                             <div class="admin-card-form__field">
                                                 <label class="admin-panel-title">Target budget</label>
-                                                <input type="text">
+                                                <input type="text" name="budget" placeholder="$6000">
                                             </div>
                                             <div class="admin-card-form__field field--co-op">
                                                 <label class="admin-panel-title">CO-OP</label>
-                                                <input type="text">
+                                                <input type="text" name="co-op" placeholder="$365">
                                             </div>
                                         </div>
-                                        <div class="admin-card-form__field">
+                                        <div class="admin-card-form__field field--vendor">
                                             <label class="admin-panel-title">Vendor</label>
-                                            <input type="text">
+                                            <div class="admin-card-form__select">
+                                                <i class="select-arrow"></i> 
+                                                <input type="text" name="vendor" placeholder="TLC">
+                                            </div>     
+                                            
                                         </div>
 
                                     </div>
@@ -421,7 +430,9 @@
                                             <button class="admin-card-form__submit">Chose th creative</button>
                                         </div>
                                         <div class="admin-card-form__field">
+                                                <label class="admin-panel-title">Target budget</label>
                                             <div class="flight-date">
+                                                
                                                 <ul class="flight-date-list">
                                                     <li class="flight-date-list__item">
                                                         <span class="start">05/02</span>
@@ -463,6 +474,18 @@
                             </form>
                         </div>
                     </div>
+                    <div v-else-if="isActivePane === 'upload budge file'">
+                            <h1>{{isActivePane}}</h1>
+                    </div>
+                    <div v-else-if="isActivePane === 'Edit rooftop settings'">
+                            <h1>{{isActivePane}}</h1>
+                    </div>
+                    <div v-else-if="isActivePane === 'add access list'">
+                            <h1>{{isActivePane}}</h1>
+                    </div>
+                    <div v-else-if="isActivePane === 'events'">
+                            <h1>{{isActivePane}}</h1>
+                    </div>
                 </div>
             </div>
         </div>
@@ -471,51 +494,7 @@
 
     </div>
 
-    <script>
-        
-        Vue.component('todo-item', {
-            template: '<li>Это todo</li>'
-        })
-        var app = new Vue({
-            el: '#app',
-            data: {
-            isActive: true,
-            cars: [
-            {id: 1,name: "Chevy", isActive: false},
-            {id: 2,name: "Ford", isActive: false},
-            {id: 3,name: "Ford", isActive: false},
-            {id: 4,name: "Toyota", isActive: false},
-            {id: 5,name: "Subaru", isActive: false},
-            {id: 6,name: "Chev", isActive: false},
-            {id: 7,name: "Nissan", isActive: false},
-            {id: 8,name: "Mazda", isActive: false},
-            ],
-            nextCarId: 8,
-            message: 'Вот когда вы загрузили эту страницу: '
-             + new Date().toLocaleString()
-            },
-            computed: {
-                reverseMessage: function() {
-                    console.log(this.message)
-                    return this.message
-                }
-            },
-            methods: {
-                reverseMessageTru: function() {
-                    console.log(this.message)
-                    return Date.now()
-                },
-                addNewCar: function() {
-                    this.cars.push({
-                        id: this.nextCarId++,
-                        name: `Noname ${this.nextCarId}`,
-                        isActive: false
-                    })
-                }
-            },
-        })
-
-    </script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
